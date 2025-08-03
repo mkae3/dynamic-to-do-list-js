@@ -1,53 +1,50 @@
-// ننتظر تحميل كامل الصفحة قبل تنفيذ الكود
-document.addEventListener('DOMContentLoaded', function() {
 
-    // اختيار العناصر من DOM
+document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.getElementById('add-task-btn');
     const taskInput = document.getElementById('task-input');
     const taskList = document.getElementById('task-list');
 
-    // دالة لإضافة مهمة جديدة
     function addTask() {
-        const taskText = taskInput.value.trim();  // نأخذ النص ونتخلص من المسافات الفارغة
+        const taskText = taskInput.value.trim();
 
-        // التحقق من أن المستخدم أدخل نصًا
         if (taskText === '') {
             alert('Please enter a task.');
-            return;  // نوقف التنفيذ إذا لم يدخل شيء
+            return;
         }
 
-        // إنشاء عنصر li جديد لتمثيل المهمة
+        // إنشاء عنصر li جديد للمهمة
         const li = document.createElement('li');
         li.textContent = taskText;
 
-        // إنشاء زر الحذف
+        // إنشاء زر إزالة جديد
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
-        removeBtn.className = 'remove-btn';
 
-        // عندما يضغط المستخدم على زر الحذف، نحذف المهمة من القائمة
+        // إضافة كلاس باستخدام classList.add
+        removeBtn.classList.add('remove-btn');
+
+        // تعيين حدث onclick لإزالة المهمة عند الضغط على الزر
         removeBtn.onclick = function() {
             taskList.removeChild(li);
         };
 
-        // نضيف زر الحذف إلى المهمة (li)
+        // إضافة زر الإزالة إلى المهمة
         li.appendChild(removeBtn);
 
-        // نضيف المهمة إلى قائمة المهام (ul)
+        // إضافة المهمة إلى قائمة المهام
         taskList.appendChild(li);
 
-        // نعيد تهيئة مربع الإدخال ليصبح فارغًا بعد الإضافة
+        // تنظيف حقل الإدخال
         taskInput.value = '';
     }
 
-    // عند الضغط على زر الإضافة، نستدعي دالة إضافة المهمة
+    // إضافة مستمع لزر الإضافة
     addButton.addEventListener('click', addTask);
 
-    // دعم إضافة المهمة عند الضغط على زر Enter في مربع الإدخال
+    // إضافة مستمع لإدخال مفتاح "Enter"
     taskInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             addTask();
         }
     });
-
 });
